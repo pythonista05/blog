@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}Search Results{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mt-4">Search Results for "{{ query }}"</h1>
+    <form method="GET" action="{% url 'search' %}" class="mb-4">
+        <div class="input-group">
+            <input type="text" name="q" class="form-control" placeholder="Search..." required>
+            <button class="btn btn-primary" type="submit">Search</button>
+        </div>
+    </form>
+
+    <ul class="list-group">
+        {% for post in posts %}
+            <li class="list-group-item">
+                <h2>{{ post.title }}</h2>
+                <p>{{ post.content }}</p>
+            </li>
+        {% empty %}
+            {% comment %} <li class="list-group-item">No results found.</li> {% endcomment %}
+        {% endfor %}
+    </ul>
+    <a class="btn btn-primary btn-sm mt-3" href="{% url 'blog_list' %}">Back</a>
+</div>
+{% endblock %}
